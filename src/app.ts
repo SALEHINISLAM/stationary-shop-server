@@ -10,5 +10,5 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!')
 })
 
-console.log(process.cwd()) // current working directory
+//console.log(process.cwd()) // current working directory
 export default app
