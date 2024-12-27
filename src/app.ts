@@ -1,5 +1,5 @@
 import express, { Application, Request, Response } from 'express'
-const app: Application = express()
+const app:Application = express()
 import cors from 'cors'
 import { stationaryRoutes } from './app/AllModules/stationaryProduct/stationaryProduct.route'
 import { OrderRoute } from './app/AllModules/Order/Order.route'

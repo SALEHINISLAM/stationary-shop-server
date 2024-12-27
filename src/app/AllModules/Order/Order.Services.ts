@@ -1,8 +1,6 @@
-import { error } from "console";
 import { OrderModel } from "../orderModel";
 import { stationaryProductModel } from "../stationaryProductModel";
 import { Order } from "./Order.interface";
-import { promises } from "dns";
 
 const createOrderIntoDB = async (order: Order) => {
     const productId = order.product;
