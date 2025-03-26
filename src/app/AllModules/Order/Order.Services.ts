@@ -1,6 +1,6 @@
-import { OrderModel } from "../orderModel";
-import { stationaryProductModel } from "../stationaryProductModel";
+import { OrderModel } from "./Order.model";
 import { Order } from "./Order.interface";
+import { stationaryProductModel } from "../stationaryProduct/stationaryProduct.model";
 
 const createOrderIntoDB = async (order: Order) => {
     const productId = order.product;

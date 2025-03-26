@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { StationaryProduct } from './stationaryProduct/stationaryProduct.interface';
+import { StationaryProduct } from './stationaryProduct.interface';
 
 const stationaryProductSchema = new Schema<StationaryProduct>({
     name: { 

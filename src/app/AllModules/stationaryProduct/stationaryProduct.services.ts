@@ -1,5 +1,5 @@
-import { stationaryProductModel } from "../stationaryProductModel";
 import { StationaryProduct } from "./stationaryProduct.interface";
+import { stationaryProductModel } from "./stationaryProduct.model";
 
 const createStationaryProductIntoDB=async (product:StationaryProduct)=>{
     const result=await stationaryProductModel.create(product)
