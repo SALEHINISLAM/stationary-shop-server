@@ -6,14 +6,18 @@ import { OrderRoute } from './app/AllModules/Order/Order.route'
 import { UserRoutes } from './app/AllModules/Users/user.route'
 import notFound from './app/middleware/notFound'
 import globalErrorHandler from './app/middleware/globalErrorHandler'
+import { authRoutes } from './app/AllModules/Auth/auth.routes'
+import config from './app/config'
 //parsers
 app.use(express.json())
-app.use(cors())
+app.use(cors({origin:config.frontend_url,credentials:true}))
 
 //application routes
 app.use("/api",stationaryRoutes)
 app.use("/api",OrderRoute)
-app.use("/user",UserRoutes)
+app.use("/api/user",UserRoutes)
+app.use("/api/auth",authRoutes)
+
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!')
 })

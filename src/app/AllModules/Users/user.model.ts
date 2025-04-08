@@ -3,6 +3,7 @@ import { IUserModel, TUser } from "./user.interface";
 import { USER_ROLE, USER_ROLE_TYPE } from "./user.constant";
 import bcrypt from "bcrypt";
 import config from "../../config";
+import AppError from "../../errors/AppError";
 
 const UserSchema = new Schema<TUser,IUserModel>({
     name: {
@@ -80,6 +81,9 @@ UserSchema.statics.isJWTIssuedBeforePasswordChanged = function (
 };
 
 UserSchema.statics.isPasswordMatched = async function (plainTextPassword, hashedPassword) {
+    if (!plainTextPassword || !hashedPassword) {
+        throw new AppError(400,'Both password and hash are required for comparison');
+      }
     return await bcrypt.compare(plainTextPassword, hashedPassword)
 }
 

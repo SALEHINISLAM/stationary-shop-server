@@ -23,10 +23,11 @@ const auth = (...requiredRoles: USER_ROLE_TYPE[]) => {
                 config.jwt_access_token as string,
             ) as JwtPayload;
         } catch (error) {
+            console.log(error);
             throw new AppError(StatusCodes.UNAUTHORIZED, "UnAuthorizedError")
         }
         const { role, email, iat } = decoded;
-        //console.log(decoded)
+        console.log(decoded)
         //checking if the user is exists
         const user = await UserModel.findOne({email:email})
         if (!user) {

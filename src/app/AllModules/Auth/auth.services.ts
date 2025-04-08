@@ -6,16 +6,17 @@ import { createToken } from "./auth.utilis";
 import config from "../../config";
 
 const loginUser = async (payload: TLoginUser) => {
-    const user = await UserModel.findOne({ email: payload.email })
+    const user = await UserModel.findOne({ email: payload.email }).select("+password")
     if (!user) {
         throw new AppError(StatusCodes.NOT_FOUND, 'This user not found')
     }
     if (user.isDeleted) {
         throw new AppError(StatusCodes.FORBIDDEN, "This user is deleted")
     }
-    if (!(UserModel.isPasswordMatched(payload.password, user.password))) {
-        throw new AppError(StatusCodes.UNAUTHORIZED, "Password not matched")
+    if (!(await UserModel.isPasswordMatched(payload.password, user.password))) {
+        throw new AppError(StatusCodes.UNAUTHORIZED, "Password not matched");
     }
+    
     const jwtPayload = {
         email: user.email,
         role: user.role
@@ -29,4 +30,8 @@ const loginUser = async (payload: TLoginUser) => {
     return { accessToken, refreshToken }
 }
 
-export const AuthServices = { loginUser }
+const refreshToken = async () => {
+
+}
+
+export const AuthServices = { loginUser, refreshToken }

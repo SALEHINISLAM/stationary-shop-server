@@ -14,5 +14,6 @@ export default {
   jwt_access_token:process.env.JWT_ACCESS_TOKEN,
   jwt_refresh_token:process.env.JWT_REFRESH_TOKEN,
   JWT_ACCESS_EXPIRES_IN:process.env.JWT_ACCESS_EXPIRES_IN,
-  JWT_REFRESH_EXPIRES_IN:process.env.JWT_REFRESH_EXPIRES_IN
+  JWT_REFRESH_EXPIRES_IN:process.env.JWT_REFRESH_EXPIRES_IN,
+  frontend_url:process.env.FRONTEND_URL
 }
