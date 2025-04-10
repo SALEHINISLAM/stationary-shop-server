@@ -13,8 +13,8 @@ app.use(express.json())
 app.use(cors({origin:config.frontend_url,credentials:true}))
 
 //application routes
-app.use("/api",stationaryRoutes)
-app.use("/api",OrderRoute)
+app.use("/api/stationary-product",stationaryRoutes)
+app.use("/api/order",OrderRoute)
 app.use("/api/user",UserRoutes)
 app.use("/api/auth",authRoutes)
 

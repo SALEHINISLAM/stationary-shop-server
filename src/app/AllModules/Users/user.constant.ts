@@ -1,7 +1,7 @@
 export const USER_ROLE = {
-    superAdmin: 'superAdmin',
+    superAdmin: "superAdmin",
     user: 'user',
-    admin: 'admin',
+    admin: "admin"
 } as const;
 
 export enum USER_ROLE_TYPE {
