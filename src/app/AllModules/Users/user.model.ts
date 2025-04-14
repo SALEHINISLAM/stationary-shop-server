@@ -45,6 +45,23 @@ const UserSchema = new Schema<TUser,IUserModel>({
         type: Boolean,
         default: false,
     },
+    wishList: {
+        type: [String],
+        default: [],
+    },
+    cart: {
+        type: [
+            {
+                productId: { type: String, required: true },
+                quantity: { type: Number, required: true },
+            },
+        ],
+        default: [],
+    },
+    address: {
+        type: String,
+        default: "",
+    },
 
 },
     {

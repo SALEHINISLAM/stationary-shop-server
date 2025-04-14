@@ -32,4 +32,75 @@ const createUserIntoDB = async (payload: Partial<TUser>) => {
     }
 }
 
-export const userServices = { createUserIntoDB }
+const addToWishList = async (productId: string, email: string) => {
+    // 1. Find the user (with proper type checking)
+    const user = await UserModel.findOne({
+        email: email.toLowerCase().trim(),
+        isDeleted: false
+    }).select('+wishList +_id'); // Explicitly include wishList
+
+    if (!user) {
+        throw new AppError(StatusCodes.NOT_FOUND, "User not found or account is disabled");
+    }
+
+    // 2. Validate productId format if needed
+    if (!productId || typeof productId !== 'string') {
+        throw new AppError(StatusCodes.BAD_REQUEST, "Invalid product ID");
+    }
+
+    const wishLists=user.wishList
+
+    // 3. Check for duplicate (case-sensitive check)
+    const isAlreadyInWishlist = wishLists.some(
+        id => id === productId
+    );
+
+    if (isAlreadyInWishlist) {
+        throw new AppError(StatusCodes.CONFLICT, "Product already exists in wishlist");
+    }
+
+    // 4. Add to wishlist and save
+    const result=await UserModel.updateOne(
+        {_id: user._id},
+        {wishList: [...user.wishList, productId]},
+        {new: true} // Return the updated document
+    )
+
+    // 5. Return the updated user (without sensitive fields)
+    return result
+};
+
+const addToCart=async(productId:string,email:string)=>{
+    const user=await UserModel.findOne({
+        email:email.toLowerCase().trim(),
+        isDeleted:false
+    }).select('+cart +_id')
+
+    if(!user){
+        throw new AppError(StatusCodes.NOT_FOUND,"User not found or account is disabled")
+    }
+
+    if(!productId || typeof productId!=='string'){
+        throw new AppError(StatusCodes.BAD_REQUEST,"Invalid product ID")
+    }
+
+    const cart=user.cart
+
+    const isAlreadyInCart=cart.some(
+        item=>item.productId===productId
+    )
+
+    if(isAlreadyInCart){
+        throw new AppError(StatusCodes.CONFLICT,"Product already exists in cart")
+    }
+
+    const result=await UserModel.updateOne(
+        {_id:user._id},
+        {cart:[...user.cart,{productId:productId,quantity:1}]},
+        {new:true}
+    )
+
+    return result
+}
+
+export const userServices = { createUserIntoDB,addToWishList,addToCart }

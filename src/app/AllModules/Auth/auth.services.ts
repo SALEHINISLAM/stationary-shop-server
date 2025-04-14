@@ -27,7 +27,7 @@ const loginUser = async (payload: TLoginUser) => {
         config.jwt_refresh_token as string,
         config.JWT_REFRESH_EXPIRES_IN as string,)
 
-    return { accessToken, refreshToken }
+    return { accessToken, refreshToken,wishList:user.wishList || [], cart:user.cart ||[] }
 }
 
 const refreshToken = async (token: string) => {

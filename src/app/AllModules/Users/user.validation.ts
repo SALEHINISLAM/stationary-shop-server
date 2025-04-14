@@ -8,4 +8,16 @@ const createUserValidation=z.object({
     })
 })
 
-export const UserValidation={createUserValidation}
+const addToWishListValidation=z.object({
+    body:z.object({
+        productId:z.string({message:"Product Id is required"}).min(4).max(40)
+    })
+})
+
+const addToCartValidation=z.object({
+    body:z.object({
+        productId:z.string({message:"Product Id is required"}).min(4).max(40)
+    })
+})
+
+export const UserValidation={createUserValidation,addToWishListValidation,addToCartValidation}

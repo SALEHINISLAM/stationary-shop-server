@@ -7,13 +7,13 @@ export const createToken=(
     secret:string,
     expiresIn:string ,
 )=>{
-    console.log("from create token", jwtPayload);
+    //console.log("from create token", jwtPayload);
     return jwt.sign(jwtPayload, secret, {expiresIn} as SignOptions);
 }
 
 export const verifyToken=(token:string,secret:string):JwtPayload=>{
     try {
-        console.log("From verify token func", token);
+        //console.log("From verify token func", token);
         
         // Attempt to verify the token
         const decoded = jwt.verify(token, secret);
